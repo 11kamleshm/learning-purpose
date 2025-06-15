@@ -1,29 +1,29 @@
-pipeline {
-    agent any
-
-    stages {
-        stage('Clone Repo') {
-            steps {
-                git 'https://github.com/your-username/learning-purpose.git'
+pipeline{
+    agent { label 'Jenkins-Agent' }
+    tools {
+        jdk "Java17"
+        maven "Maven3"
+        }
+    stages{
+        stage("Cleanup Workspace"){
+            steps{
+                cleanWs()
             }
         }
-
-        stage('Build') {
-            steps {
-                sh 'mvn clean compile'
+        stage("Checkout from SCM"){
+            steps{
+                git branch: "main",credentialsId: "github", url:"https://github.com/11kamleshm/learning-purpose"
             }
         }
-
-        stage('Test') {
-            steps {
-                echo 'No tests configured yet.'
+        stage("Build Application"){
+            steps{
+                sh "mv clean package"
             }
         }
-
-        stage('Package') {
-            steps {
-                sh 'mvn package'
-            }
+        stage("Test Application"){
+            steps{
+            sh "mvn test"
         }
     }
+}
 }
