@@ -30,5 +30,15 @@ pipeline {
                 sh 'mvn test'
             }
         }
+        stage("Build docker image"){
+            steps{
+                sh 'docker build -t kamlesh-java-app .'
+            }
+        }
+        stage("Run Docker container"){
+            steps{
+                sh 'docker run --rm kamlesh-java-app'
+            }
+        }
     }
 }
