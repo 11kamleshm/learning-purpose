@@ -1,6 +1,6 @@
 public class App {
     public static void main(String[] args) {
         System.out.println("Hello from Jenkins Pipeline!");
-        System.out.println("Hello from Jenkins Pipeline v2!");
+        System.out.println("Hello from Jenkins Pipeline for checking purpose!");
     }
 }
