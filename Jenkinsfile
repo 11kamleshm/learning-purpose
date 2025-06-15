@@ -2,8 +2,8 @@ pipeline {
     agent { label 'Jenkins-Agent' }
 
     tools {
-        jdk 'Java17'
-        maven 'Maven3'
+        jdk 'Java17' // Confirm 'Java17' is the exact name in Jenkins Global Tool Configuration
+        maven 'Maven3' // Confirm 'Maven3' is the exact name in Jenkins Global Tool Configuration
     }
 
     stages {
@@ -30,15 +30,23 @@ pipeline {
                 sh 'mvn test'
             }
         }
+
         stage("Build docker image"){
             steps{
-                sh '''docker build (kamlesh-java-app):latest'
-                '''
+                // Corrected Docker build command
+                // -t flag tags the image with a name and optional tag (e.g., kamlesh-java-app:latest)
+                // . (dot) at the end tells Docker to build from the Dockerfile in the current directory
+                sh 'docker build -t kamlesh-java-app:latest .'
             }
         }
+
         stage("Run Docker container"){
             steps{
-                sh 'docker.image(kamlesh-java-app).run()'
+                // Corrected Docker run command
+                // -d: Run in detached mode (in the background)
+                // -p 8080:8080: Map port 8080 from the container to port 8080 on the host
+                // kamlesh-java-app:latest: The name of the image to run
+                sh 'docker run -d -p 8080:8080 kamlesh-java-app:latest'
             }
         }
     }
