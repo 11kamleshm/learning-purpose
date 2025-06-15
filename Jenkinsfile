@@ -32,12 +32,12 @@ pipeline {
         }
         stage("Build docker image"){
             steps{
-                sh 'docker build -t kamlesh-java-app .'
+                sh 'docker build (kamlesh-java-app)'
             }
         }
         stage("Run Docker container"){
             steps{
-                sh 'docker run --rm kamlesh-java-app'
+                sh 'docker.image(kamlesh-java-app).run()'
             }
         }
     }
