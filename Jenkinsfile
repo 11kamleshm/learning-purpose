@@ -32,8 +32,7 @@ pipeline {
         }
         stage("Build docker image"){
             steps{
-                sh '''docker build (kamlesh-java-app)'
-                docker build -t learning-image:latest .
+                sh '''docker build (kamlesh-java-app):latest'
                 '''
             }
         }
